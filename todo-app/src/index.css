@@ -1,0 +1,283 @@
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 30px;
+  background-color: #eef4ff;
+}
+
+/* MAIN CONTAINER */
+#root {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px #c9d6f2;
+}
+
+/* HEADINGS */
+h1 {
+  text-align: center;
+  color: #3157a4;
+  margin-bottom: 25px;
+}
+
+h2 {
+  text-align: center;
+  color: #4f46a5;
+}
+
+/* INPUT */
+input {
+  padding: 9px;
+  margin: 5px;
+  border: 1px solid #b9c8e8;
+  border-radius: 6px;
+  color: #263859;
+  background-color: #ffffff;
+}
+
+input:focus {
+  outline: none;
+  border-color: #4f6fd7;
+}
+
+/* BUTTON */
+button {
+  padding: 8px 14px;
+  margin: 5px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #4f6fd7;
+  color: white;
+}
+
+button:hover {
+  background-color: #3d58b5;
+}
+
+/* NORMAL TEXT */
+p {
+  word-wrap: break-word;
+  margin: 8px 0;
+  color: #263859;
+}
+
+
+/* =========================
+   USER SEARCH
+   ========================= */
+
+.search-section {
+  margin: 20px 0;
+}
+
+.search-section label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #263859;
+}
+
+.input-row {
+  display: flex;
+  gap: 10px;
+}
+
+.input-row input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #b9c8e8;
+  border-radius: 5px;
+}
+
+.input-row button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+/* =========================
+   TODO LIST
+   ========================= */
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  min-height: 50px;
+  box-sizing: border-box;
+
+  margin-bottom: 10px;
+  padding: 12px 16px;
+
+  background-color: #f8faff;
+  border: 1px solid #c9d6f2;
+  border-radius: 6px;
+}
+
+.todo-title {
+  flex: 1;
+  margin: 0;
+  font-size: 15px;
+  color: #263859;
+  white-space: normal;
+}
+
+.todo-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 20px;
+  flex-shrink: 0;
+}
+
+.todo-actions button {
+  padding: 7px 14px;
+  border: none;
+  border-radius: 4px;
+
+  background-color: #4f6fd7;
+  color: white;
+  cursor: pointer;
+}
+
+.todo-actions button:hover {
+  background-color: #3d58b5;
+}
+
+
+/* =========================
+   FORM
+   ========================= */
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.form-row label {
+  width: 60px;
+  font-size: 16px;
+  font-weight: bold;
+  white-space: nowrap;
+  text-align: left;
+  color: #263859;
+}
+
+.form-row input {
+  width: 400px;
+  height: 40px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  font-size: 14px;
+
+  color: #263859;
+
+  border: 1px solid #b9c8e8;
+  border-radius: 5px;
+  margin: 0;
+}
+
+.form-row input::placeholder {
+  color: #8794ad;
+}
+
+.form-row button {
+  height: 40px;
+  width: 90px;
+  padding: 0 15px;
+  margin: 0;
+
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  background-color: #4f6fd7;
+  color: white;
+}
+
+.form-row button:hover {
+  background-color: #3d58b5;
+}
+
+
+/* =========================
+   USER TODOS TABLE
+   ========================= */
+
+.user-todos {
+  margin-top: 25px;
+}
+
+.todo-table {
+  width: 100%;
+  border: 1px solid #c9d6f2;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.todo-table-header,
+.todo-table-row {
+  display: grid;
+  grid-template-columns: 70px 1fr 100px;
+  gap: 10px;
+  align-items: center;
+  padding: 12px;
+}
+
+.todo-table-header {
+  font-weight: bold;
+  background-color: #e7edff;
+  border-bottom: 1px solid #c9d6f2;
+  color: #3157a4;
+}
+
+.todo-table-row {
+  border-bottom: 1px solid #dce5f7;
+  background-color: white;
+  color: #263859;
+}
+
+.todo-table-row:last-child {
+  border-bottom: none;
+}
+
+
+/* =========================
+   TODO LIST CONTAINER
+   ========================= */
+
+.todo-list {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+  box-sizing: border-box;
+}
+
+.todo-list h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
+/* =========================
+   MAIN APP
+   ========================= */
+
+.app {
+  width: 100%;
+  max-width: 660px;
+  margin: 0 auto;
+  padding: 30px;
+  box-sizing: border-box;
+}
