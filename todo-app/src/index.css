@@ -215,7 +215,7 @@ p {
    USER TODOS TABLE
    ========================= */
 
-.user-todos {
+/* .user-todos {
   margin-top: 25px;
 }
 
@@ -251,7 +251,7 @@ p {
 .todo-table-row:last-child {
   border-bottom: none;
 }
-
+ */
 
 /* =========================
    TODO LIST CONTAINER

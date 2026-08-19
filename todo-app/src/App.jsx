@@ -161,6 +161,67 @@ return(
       </>
     )}
 
+<<<<<<< HEAD
+=======
+{/* <TodoForm addTodo={addTodo} />
+       -> <TodoForm /> 
+       -> <TodoList /> 
+<TodoList todos={todos} deleteTodo={deleteTodo} editTodo={editTodo} userTodos={userTodos}  /> */}
+      {/* todos       → the todo data
+deleteTodo  → the function that will delete a todo */}
+
+{/* <TodoUserSearch searchUserTodos={searchUserTodos}/> */}
+{/* user todos */}
+{/* <div>
+  <h2>User Todos</h2>
+  {userTodos.map((todo)=>(
+    <div key={todo.id}>
+      <p>User ID:{todo.userId}</p>
+      <p>Todo ID:{todo.id}</p>
+      <p>Title:{todo.title}</p>
+      <p>Completed:{todo.comleted ?"yes":"No"}</p>
+      </div>
+  ))}
+</div> */}
+
+{/*<div className="user-todos">
+    <h2>User Todos</h2>
+
+    <div className="todo-table">
+        <div className="todo-table-header">
+            <span>ID</span>
+            <span>Title</span>
+            <span>Completed</span>
+        </div>
+
+        {userTodos.map((todo) => (
+            <div className="todo-table-row" key={todo.id}>
+                <span>{todo.id}</span>
+                <span>{todo.title}</span>
+                <span>
+                    {todo.completed ? "Yes" : "No"}
+                </span>
+            </div>
+        ))}
+    </div>
+</div>*/}
+
+
+
+ 
+
+
+
+
+{/* <TodoSearch searchTodo={searchTodo}/>
+{searchedTodo === undefined ? null:searchedTodo ? (
+  <div>
+    <h2>Search Result</h2>
+
+    <p>ID: {searchedTodo.id}</p>
+    <p>Title: {searchedTodo.title}</p>
+    <p>Completed: {searchedTodo.completed ? "Yes" : "No"}</p>
+>>>>>>> 15f0f8f (updated new)
   </div>
 );
 
