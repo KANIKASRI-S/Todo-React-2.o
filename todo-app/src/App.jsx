@@ -1,8 +1,14 @@
+
 import TodoForm from "./components/TodoForm";
+
 import TodoList from "./components/TodoList";
+
+// import TodoSearch from "./components/TodoSearch";
+
 import TodoUserSearch from "./components/TodoUserSearch";
 
 import { useEffect, useState } from "react";
+
 
 import { BrowserRouter, Routes, Route, useNavigate,Navigate } from "react-router-dom";
 import Login from "./pages/Login";
@@ -10,29 +16,36 @@ import SignUp from "./pages/SignUp";
 
 
 function TodoApp(){
-  const title = "Todo Application";
   const navigate = useNavigate();
+  const title = "Todo Application";
 
   const [todos, setTodos] = useState([]);
  /*  todos
  ↓
 All 200 todos from API */
-
 const [userTodos, setUserTodos] = useState([]);
 /* userTodos
  ↓
 Only todos belonging to one user */
 
 const [selectedUserId, setSelectedUserId] = useState("");
+  // const [searchedTodo, setSearchedTodo] = useState(null);
+  // const [searchedTodo, setSearchedTodo] = useState(undefined);
 
-
+ /*  useEffect(() => {
+  console.log("App Loaded");
+}, []); */
 
 useEffect(() => {
   async function fetchTodos() {
     try {
-      const response = await fetch(
+      /* const response = await fetch(
         "https://jsonplaceholder.typicode.com/todos"
-      );
+      ); */
+
+      const response = await fetch(
+  "http://localhost:5000/todos"
+);
 
       const data = await response.json();
 
@@ -50,30 +63,67 @@ useEffect(() => {
 
 
 // add todo
-function addTodo(title){
+// function addTodo(title){
+  // console.log( title);
+  // I received Buy Milk. Print it in the console.
+  // It doesn't put Buy Milk into our todos box.
+  // That's why we need setTodos().
+
+ /*  const newTodo = {
+    id:Date.now(),
+    title:title,
+    completed:false
+  };
+  console.log(newTodo);
+  setTodos([newTodo, ...todos]); */
+
 
   // add new todo to the beginning of the todos array.
 
-  const newTodo={
+ /*  const newTodo={
     userId:Number(selectedUserId),
     id:Date.now(),
     title:title,
     completed:false
   };
-
   setTodos([newTodo, ...todos]);
-
-  setUserTodos([newTodo, ...userTodos]);
-
+  setUserTodos([newTodo, ...userTodos]); */
+  //  setUserTodos([newTodo, ...userTodos]);->>
   // new Todo immediately appear in the current user's Todo list.
-}
 
+  async function addTodo(title) {
+  try {
+    const response = await fetch("http://localhost:5000/todos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        userId: Number(selectedUserId),
+        title: title
+      })
+    });
+
+    const newTodo = await response.json();
+
+    console.log("New todo:", newTodo);
+
+    setTodos([newTodo, ...todos]);
+    setUserTodos([newTodo, ...userTodos]);
+
+  } catch (error) {
+    console.log("Add todo error:", error);
+  }
+  }
 
 
 // delete todo
-function deleteTodo(id){
-
-  setTodos((currentTodos) =>
+// function deleteTodo(id){
+  // console.log(id);
+  // id->every todo from api has an id
+  /* setTodos((currentTodos) =>
+ currentTodos.filter((todo) => todo.id !== id)); */
+ /*  setTodos((currentTodos) =>
     currentTodos.filter((todo) => todo.id !== id)
   );
 
@@ -81,63 +131,148 @@ function deleteTodo(id){
     currentTodos.filter((todo) => todo.id !== id)
   );
 
+} */
+// delete todo
+async function deleteTodo(id) {
+  try {
+    const response = await fetch(
+      `http://localhost:5000/todos/${id}`,
+      {
+        method: "DELETE"
+      }
+    );
+
+    const data = await response.json();
+
+    console.log(data);
+
+    // Remove todo from React state
+    setTodos((currentTodos) =>
+      currentTodos.filter((todo) => todo.id !== id)
+    );
+
+    setUserTodos((currentTodos) =>
+      currentTodos.filter((todo) => todo.id !== id)
+    );
+
+  } catch (error) {
+    console.log("Delete todo error:", error);
+  }
 }
 
 
-
 // edit todo
-function editTodo(id, newTitle){
-
+/* function editTodo(id, newTitle){
+ console.log(id, newTitle);
   setTodos((currentTodos) =>
     currentTodos.map((todo) => {
       if (todo.id === id) {
         return { ...todo, title: newTitle };
       }
-
       return todo;
+        todo.id === id
+        ? { ...todo, title: newTitle }
+        : todo
+    )
     })
-  );
+  ); */
 
-
-  setUserTodos((currentTodos)=>
-    currentTodos.map((todo)=>{
-      if(todo.id === id){
-        return{...todo,title:newTitle};
+  // edit todo
+async function editTodo(id, newTitle) {
+  try {
+    const response = await fetch(
+      `http://localhost:5000/todos/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          title: newTitle
+        })
       }
+    );
 
-      return todo;
-    })
-  );
+    const updatedTodo = await response.json();
+
+    console.log("Updated todo:", updatedTodo);
+
+    // Update todo in React state
+    setTodos((currentTodos) =>
+      currentTodos.map((todo) => {
+        if (todo.id === id) {
+          return updatedTodo;
+        }
+
+        return todo;
+      })
+    );
+  
+  
+
+    setUserTodos((currentTodos) =>
+      currentTodos.map((todo) => {
+        if (todo.id === id) {
+          return updatedTodo;
+        }
+
+        return todo;
+      })
+    );
+
+  } catch (error) {
+    console.log("Edit todo error:", error);
+  }
 }
 
 
+  /* setUserTodos ((currentTodos)=>
+  currentTodos.map((todo)=>{
+    if(todo.id === id){
+      return{...todo,title:newTitle};
+    }
+    return todo;
+  })
+ );
+} */
 
-// searchUserTodos
-function searchUserTodos(userId) {
+// searchtodo
+/* function searchTodo(id){
+  // console.log("ID received:", id);
+  // console.log("Todos:", todos);
+  const todo=todos.find((todo) => todo.id === Number(id));
+  // console.log(todo);
+  // console.log("found todo:",todo)
+  setSearchedTodo(todo || null);
+} */
 
+
+// UserSearch todo
+/* function searchUserTodos(userId){
+  console.log("user ID received:",userId);
+   const result =todos.filter((todo)=> todo.userId===Number(userId));
+    console.log("User todos:",result);
+    setUserTodos(result);
+   
+} */
+
+
+  // searchUserTodos
+    function searchUserTodos(userId) {
   const result = todos.filter(
     (todo) => todo.userId === Number(userId)
   );
 
   setUserTodos(result);
-
   setSelectedUserId(userId);
 }
 
-
-
 // main
-return(
-  <div className="app">
-
-    {/* <h1>Todo Application</h1> */}
-
-    <h1>{title}</h1>
-
-     {/* <button onClick={() => navigate("/login")}>
-      Logout
-    </button> */}
-    <button
+  return(
+    <div className="app">
+      {/* <h1>Todo Application</h1> */}
+      <h1>{title}</h1>
+       <button
   onClick={() => {
     localStorage.removeItem("user");
     navigate("/login");
@@ -146,23 +281,19 @@ return(
   Logout
 </button>
 
+    
     <TodoUserSearch searchUserTodos={searchUserTodos}/>
-
-
     {userTodos.length>0 && (
       <>
-        <TodoForm addTodo={addTodo}/>
+      <TodoForm addTodo={addTodo}/>
+      <TodoList 
+        todos={userTodos}
+        deleteTodo={deleteTodo}
+        editTodo={editTodo}/>
+        </>
+    ) }
 
-        <TodoList
-          todos={userTodos}
-          deleteTodo={deleteTodo}
-          editTodo={editTodo}
-        />
-      </>
-    )}
 
-<<<<<<< HEAD
-=======
 {/* <TodoForm addTodo={addTodo} />
        -> <TodoForm /> 
        -> <TodoList /> 
@@ -221,11 +352,17 @@ deleteTodo  → the function that will delete a todo */}
     <p>ID: {searchedTodo.id}</p>
     <p>Title: {searchedTodo.title}</p>
     <p>Completed: {searchedTodo.completed ? "Yes" : "No"}</p>
->>>>>>> 15f0f8f (updated new)
   </div>
-);
+):(
+  <p>Todo not found</p>
+)} */}
 
+
+      
+    </div>
+  );
 }
+
 
 
 
@@ -260,6 +397,5 @@ function App() {
   );
 
 }
-
 
 export default App;
