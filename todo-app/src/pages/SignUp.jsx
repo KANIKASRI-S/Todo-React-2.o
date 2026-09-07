@@ -8,15 +8,52 @@ function SignUp() {
 
   const navigate = useNavigate();
 
-  function handleSignUp(event) {
-    event.preventDefault();
 
-    // save user details
+/*   function handleSignUp(event) {
+    event.preventDefault(); */
+
+    async function handleSignUp(event) {
+  event.preventDefault();
+
+  try {
+    // Send user details to backend
+    const response = await fetch("http://localhost:5000/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        password: password
+      })
+    });
+
+    const data = await response.json();
+
+    console.log("Signup response:", data);
+
+    if (response.ok) {
+      alert("Signup successful!");
+      navigate("/login");
+    } else {
+      alert(data.message);
+    }
+
+  } catch (error) {
+    console.log("Signup error:", error);
+    alert("Cannot connect to backend");
+  }
+}
+
+    /* // save user details
+
     const user = {
       name: name,
       email: email,
       password: password
     };
+
 
     localStorage.setItem("user", JSON.stringify(user));
 
@@ -24,6 +61,14 @@ function SignUp() {
 
     navigate("/login");
   }
+
+    localStorage.setItem("user", JSON.stringify(user)); */
+
+    // console.log("User saved:", user);
+
+   /*  navigate("/login");
+  } */
+
 
   return (
     <div className="login-page">

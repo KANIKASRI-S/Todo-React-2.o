@@ -5,14 +5,24 @@ function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+
+/* 
   function handleLogin(event) {
-    event.preventDefault();
+    event.preventDefault(); */
+
 
     /* console.log("Email:", email);
     console.log("Password:", password);
     navigate("/todos"); */
      // get saved user
-  const savedUser = JSON.parse(localStorage.getItem("user"));
+
+  // const savedUser = JSON.parse(localStorage.getItem("user"));
+
+
+/* console.log("Saved user:", savedUser);
+console.log("Entered email:", email);
+console.log("Entered password:", password);
+
 
   if (
     savedUser &&
@@ -26,9 +36,51 @@ function Login() {
     console.log("Invalid email or password");
 
     alert("Invalid email or password");
+
   }
 
   }
+
+  } */
+     async function handleLogin(event) {
+  event.preventDefault();
+
+  try {
+    // Send login details to backend
+    const response = await fetch("http://localhost:5000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password
+      })
+    });
+
+    const data = await response.json();
+
+    console.log("Login response:", data);
+
+    if (response.ok) {
+      console.log("Login successful");
+
+      // Save logged-in user
+      localStorage.setItem("user", JSON.stringify(data.user));
+
+      navigate("/todos");
+    } else {
+      console.log("Invalid email or password");
+
+      alert(data.message);
+    }
+
+  } catch (error) {
+    console.log("Login error:", error);
+
+    alert("Cannot connect to backend");
+  }
+     }
 
   return (
     <div className="login-page">

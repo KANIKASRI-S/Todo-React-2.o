@@ -1,1 +1,5 @@
 node_modules/
+<<<<<<< HEAD
+=======
+.env
+>>>>>>> 5cb8ebb (add backend and auth pages)
